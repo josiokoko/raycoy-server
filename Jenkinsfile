@@ -37,6 +37,7 @@ pipeline {
 
 		stage("Logout") {
 			steps{
+				sh 'docker image rmi -f $(docker image ls -aq)'
 				sh 'docker logout'
 				echo 'Logout successful!'
 			}
