@@ -26,9 +26,12 @@ pipeline {
 			}
 		}
 
-		stage("Push") {
+		stage("Tag Image and Push to DockerHub") {
 			steps {
-				echo 'pushing ...'
+				echo 'tagging...'
+				sh "docker tag josiokoko/raycoy-things docker.io/josiokoko/raycoy-new-app:$BUILD_ID"
+				echo 'pushing...'
+				sh "docker push docker.io/josiokoko/raycoy-new-app:$BUILD_ID"
 			}
 		}
 
