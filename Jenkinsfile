@@ -1,6 +1,10 @@
 pipeline {
 	agent any
 
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('josiokoko')
+	}
+
 	stages {
 		stage("GitHub Checkout") {
 			steps {
@@ -17,12 +21,21 @@ pipeline {
 		stage("Authenticate to DockerHub") {
 			steps {
 				echo 'Authenticating...'
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				echo 'Login complete...'
 			}
 		}
 
 		stage("Push") {
 			steps {
-				echo 'Pushing image to dockerhub...'
+				echo 'pushing ...'
+			}
+		}
+
+		stage("Logout") {
+			steps{
+				sh 'docker logout'
+				echo 'Logout successful!'
 			}
 		}
 
