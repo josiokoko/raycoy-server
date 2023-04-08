@@ -4,13 +4,13 @@ pipeline {
 	stages {
 		stage("GitHub Checkout") {
 			steps {
-				echo "checking out of GitHub..."
+				git branch: 'main', url: 'https://github.com/josiokoko/raycoy-server.git'
 			}
 		}
 
 		stage("Docker Build") {
 			steps {
-				echo 'Building docker image...'
+				sh 'docker image build -t josiokoko/raycoy-things .'
 			}
 		}
 
